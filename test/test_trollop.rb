@@ -178,6 +178,12 @@ class Trollop < ::Test::Unit::TestCase
     assert_nothing_raised { @p.opt "argmst", "desc", :type => :strings, :default => ["yo"] }
   end
 
+  def test_type_and_empty_array
+    assert_nothing_raised { @p.opt "argmst", "desc", :type => :strings, :default => [] }
+    opts = @p.parse('')
+    assert_equal(opts['argmst'], [])
+  end
+
   def test_long_detects_bad_names
     assert_nothing_raised { @p.opt "goodarg", "desc", :long => "none" }
     assert_nothing_raised { @p.opt "goodarg2", "desc", :long => "--two" }
